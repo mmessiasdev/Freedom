@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fluttercode/view/pages/login/login.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_grocery/route/app_page.dart';
+import 'package:my_grocery/route/app_route.dart';
 
-import 'controller/routes/page.dart';
-import 'controller/routes/route.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
 
-
-void main() {
+  configLoading();
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,19 +28,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 void configLoading(){
   EasyLoading.instance
-  ..displayDuration = const Duration(milliseconds: 2000)
-  ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-  ..loadingStyle = EasyLoadingStyle.dark
-  ..indicatorSize = 45.0
-  ..radius = 10.0
-  ..progressColor = Colors.yellow
-  ..backgroundColor = Colors.green
-  ..indicatorColor = Colors.yellow
-  ..textColor = Colors.yellow
-  ..maskColor = Colors.blue.withOpacity(0.5)
-  ..userInteractions = true
-  ..dismissOnTap = false;
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.white
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.white
+    ..textColor = Colors.white
+    ..userInteractions = false
+    ..maskType = EasyLoadingMaskType.black
+    ..dismissOnTap = true;
 }

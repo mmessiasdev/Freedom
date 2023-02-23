@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 
+part 'user.g.dart';
+
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
 @HiveType(typeId: 4)
@@ -15,16 +17,15 @@ class User {
   @HiveField(3)
   String? image;
   @HiveField(4)
-  String age;
+  DateTime? birthDay;
 
-  User({required this.id,required this.fullName,required this.email,this.image,required this.age});
+  User({required this.id,required this.fullName,required this.email,this.image, this.birthDay});
 
   factory User.fromJson(Map<String, dynamic> data) => User(
       id: data['id'].toString(),
       fullName: data['fullName'],
       email: data['email'],
-         age: data['age'],
       image: data['image'] == null ? null : data['image']['url'],
-   
+      birthDay: data['age'] == null ? null : DateTime.parse(data['age']),
   );
 }
