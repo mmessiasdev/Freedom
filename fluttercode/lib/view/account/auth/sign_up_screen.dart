@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_grocery/component/colors.dart';
-import 'package:my_grocery/component/texts.dart';
-import 'package:my_grocery/controller/controllers.dart';
-import 'package:my_grocery/extention/string_extention.dart';
+import 'package:Freedom/component/colors.dart';
+import 'package:Freedom/component/texts.dart';
+import 'package:Freedom/controller/controllers.dart';
+import 'package:Freedom/extention/string_extention.dart';
 
 import '../../../component/buttomborder.dart';
 import '../../../component/buttomdefault.dart';

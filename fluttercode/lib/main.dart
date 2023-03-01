@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:my_grocery/route/app_page.dart';
-import 'package:my_grocery/route/app_route.dart';
+import 'package:Freedom/route/app_page.dart';
+import 'package:Freedom/route/app_route.dart';
 
-void main() async {
+import 'model/user.dart';
+
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
-  configLoading();
+  Hive.registerAdapter(ReagentModelAdapter());
+  await Hive.openBox<User>('Reagent');
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void configLoading(){
+void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
     ..indicatorType = EasyLoadingIndicatorType.fadingCircle

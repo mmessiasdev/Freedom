@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:my_grocery/route/app_route.dart';
-import 'package:my_grocery/view/dashboard/dashboard_binding.dart';
-import 'package:my_grocery/view/dashboard/dashboard_screen.dart';
+import 'package:Freedom/route/app_route.dart';
+import 'package:Freedom/view/dashboard/dashboard_binding.dart';
+import 'package:Freedom/view/dashboard/dashboard_screen.dart';
 
 class AppPage {
   static var list = [

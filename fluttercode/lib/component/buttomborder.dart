@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_grocery/component/texts.dart';
+import 'package:Freedom/component/texts.dart';
 
 class InputOutlineButton extends StatelessWidget {
   final String title;

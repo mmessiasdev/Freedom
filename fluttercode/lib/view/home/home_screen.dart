@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_grocery/component/header.dart';
-import 'package:my_grocery/controller/controllers.dart';
+import 'package:Freedom/component/header.dart';
 
 
 class HomeScreen extends StatelessWidget {

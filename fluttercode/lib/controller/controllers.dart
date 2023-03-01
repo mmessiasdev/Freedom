@@ -1,4 +1,4 @@
-import 'package:my_grocery/controller/auth_controller.dart';
+import 'package:Freedom/controller/auth_controller.dart';
 
 import 'dashboard_controller.dart';
 

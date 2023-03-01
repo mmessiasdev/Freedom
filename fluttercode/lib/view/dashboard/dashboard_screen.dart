@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_grocery/component/colors.dart';
-import 'package:my_grocery/controller/dashboard_controller.dart';
-import 'package:my_grocery/view/home/home_screen.dart';
+import 'package:Freedom/component/colors.dart';
+import 'package:Freedom/controller/dashboard_controller.dart';
+import 'package:Freedom/view/home/home_screen.dart';
 
 import '../account/account_screen.dart';
 
@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
             unselectedLabelStyle: GoogleFonts.asap(
               fontSize: 12
             ),
-            unselectedItemColor: BackgroundOffColor,
+            unselectedItemColor: OffColor,
             showUnselectedLabels: true,
             snakeViewColor: SecudaryColor,
             currentIndex: controller.tabIndex,

@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_grocery/controller/controllers.dart';
+import 'package:Freedom/controller/controllers.dart';
 
 class MainHeader extends StatelessWidget {
   const MainHeader({Key? key}) : super(key: key);

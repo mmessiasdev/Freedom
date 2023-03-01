@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:my_grocery/service/local_service/local_auth_service.dart';
-import 'package:my_grocery/service/remote_service/remote_auth_service.dart';
+import 'package:Freedom/service/local_service/local_auth_service.dart';
+import 'package:Freedom/service/remote_service/remote_auth_service.dart';
 
 import '../model/user.dart';
 
@@ -32,19 +32,20 @@ class AuthController extends GetxController {
         String token = json.decode(result.body)['jwt'];
         var userResult = await RemoteAuthService().createProfile(fullName: fullName, token: token);
         if(userResult.statusCode == 200) {
+          print(user.value);
           user.value = userFromJson(userResult.body);
           await _localAuthService.addToken(token: token);
           await _localAuthService.addUser(user: user.value!);
-          EasyLoading.showSuccess("Welcome to MyGrocery!");
+          EasyLoading.showSuccess("Bem vindo ao Freedom.");
           Navigator.of(Get.overlayContext!).pop();
         } else {
-          EasyLoading.showError('Something wrong. Try again!');
+          EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
         }
       } else {
-        EasyLoading.showError('Something wrong. Try again!');
+        EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
       }
     } catch(e){
-      EasyLoading.showError('Something wrong. Try again!');
+      EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
     } finally {
       EasyLoading.dismiss();
     }
@@ -67,17 +68,17 @@ class AuthController extends GetxController {
           user.value = userFromJson(userResult.body);
           await _localAuthService.addToken(token: token);
           await _localAuthService.addUser(user: user.value!);
-          EasyLoading.showSuccess("Welcome to MyGrocery!");
+          EasyLoading.showSuccess("Bem vindo ao Freedom");
           Navigator.of(Get.overlayContext!).pop();
         } else {
-          EasyLoading.showError('Something wrong. Try again!');
+          EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
         }
       } else {
-        EasyLoading.showError('Username/password wrong');
+        EasyLoading.showError('Email ou senha incorreto.');
       }
     } catch(e){
       debugPrint(e.toString());
-      EasyLoading.showError('Something wrong. Try again!');
+      EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
     } finally {
       EasyLoading.dismiss();
     }

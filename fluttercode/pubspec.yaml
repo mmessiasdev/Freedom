@@ -1,4 +1,4 @@
-name: my_grocery
+name: Freedom
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -44,10 +44,10 @@ dependencies:
   carousel_slider: ^4.1.1
   intl: ^0.17.0
   flutter_easyloading: ^3.0.5
-
-  #local db
   hive: ^2.2.0
   hive_flutter: ^1.1.0
+
+  #local db
   google_fonts: ^4.0.3
 
 dev_dependencies:
