@@ -70,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (value == null || value.isEmpty) {
                       return "Esse campo não pode ficar vazio.";
                     } else if (!value.isValidEmail) {
-                      return "Please enter valid email";
+                      return "Insira um email válido.";
                     }
                     return null;
                   },
@@ -131,7 +131,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("É um novo usário?, "),
+                    const Text("É um novo usário? "),
                     InkWell(
                         onTap: () {
                           Navigator.pushReplacement(

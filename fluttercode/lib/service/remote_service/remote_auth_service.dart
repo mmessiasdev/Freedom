@@ -24,7 +24,8 @@ class RemoteAuthService {
     required String fullName,
     required String token,
   }) async {
-    var body = {"fullname": fullName};
+    var body = {"fullName": fullName};
+    print(body);
     var response = await client.post(
       Uri.parse('$baseUrl/api/profile/me'),
       headers: {
