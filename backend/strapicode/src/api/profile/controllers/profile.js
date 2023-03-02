@@ -15,7 +15,7 @@ module.exports = createCoreController('api::profile.profile', ({Strapi}) => ({
             }
             const result = await strapi.entityService.create('api::profile.profile', {
                 data: {
-                    fullname: ctx.request.body.fullName,
+                    fullName: ctx.request.body.fullName,
                     email: user.email,
                     user: user.id,
                     age: ctx.request.body.age
