@@ -29,7 +29,7 @@ class RemoteAuthService {
     var response = await client.post(
       Uri.parse('$baseUrl/api/profile/me'),
       headers: {
-        "Content-Type": "application/json", 
+        "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
       body: jsonEncode(body),
@@ -41,15 +41,13 @@ class RemoteAuthService {
     required String email,
     required String password,
   }) async {
-    var body = {
-      "identifier": email,
-      "password": password
-    };
+    var body = {"identifier": email, "password": password};
     var response = await client.post(
       Uri.parse('$baseUrl/api/auth/local'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(body),
     );
+    print(body);
     return response;
   }
 
@@ -62,6 +60,23 @@ class RemoteAuthService {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
+    );
+    return response;
+  }
+
+  Future addPost({
+    required String content,
+    required String token,
+  }) async {
+    var body = {"content": content};
+    print(body);
+    var response = await client.post(
+      Uri.parse('$baseUrl/api/posts'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode(body),
     );
     return response;
   }

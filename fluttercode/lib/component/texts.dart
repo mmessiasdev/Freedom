@@ -24,6 +24,30 @@ class PrimaryText extends StatelessWidget {
     );
   }
 }
+class SecundaryText extends StatelessWidget {
+  SecundaryText({required this.text, required this.color, required this.align});
+  String text;
+  Color color;
+  TextAlign align;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.aleo(
+          fontSize: 20,
+          textStyle: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: color,
+            decoration: TextDecoration.none,
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class ButtomText extends StatelessWidget {
   ButtomText({

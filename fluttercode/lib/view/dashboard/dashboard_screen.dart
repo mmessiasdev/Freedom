@@ -1,3 +1,4 @@
+import 'package:Freedom/view/blog/blog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,8 @@ class DashboardScreen extends StatelessWidget {
             index: controller.tabIndex,
             children: const [
               HomeScreen(),
-              AccountScreen()
+              BlogPage(),
+              AccountScreen(),
             ],
           ),
         ),
@@ -46,7 +48,7 @@ class DashboardScreen extends StatelessWidget {
             },
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.warning_rounded), label: 'Denúncias'),
+              BottomNavigationBarItem(icon: Icon(Icons.warning_rounded), label: 'Blog'),
               BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Conta')
             ],
           ),

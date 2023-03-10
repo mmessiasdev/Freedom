@@ -5,10 +5,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:Freedom/route/app_page.dart';
 import 'package:Freedom/route/app_route.dart';
 
+
 import 'model/user.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await Hive.initFlutter();
   Hive.registerAdapter(ReagentModelAdapter());
   await Hive.openBox<User>('Reagent');
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoute.dashboard,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      builder: EasyLoading.init(),
+      builder: EasyLoading.init(),  
     );
   }
 }
