@@ -86,8 +86,9 @@ class _BlogPageState extends State<BlogPage> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return SizedBox(
-                          height: 500,
+                          height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
+                            physics: const ScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
