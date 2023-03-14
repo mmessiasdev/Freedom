@@ -80,7 +80,7 @@ class _BlogPageState extends State<BlogPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: FutureBuilder<List<Attributes>>(
                     future: fetchPosts.fetchPostsList(),
                     builder: (context, snapshot) {
@@ -88,7 +88,8 @@ class _BlogPageState extends State<BlogPage> {
                         return SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
-                            physics: const ScrollPhysics(),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
@@ -101,13 +102,13 @@ class _BlogPageState extends State<BlogPage> {
                                           child: PostContainer(
                                         content: renders.content.toString(),
                                       )),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
                                     ],
                                   );
                                 }
-                                return SizedBox(
+                                return const SizedBox(
                                   child: Center(
                                     child: Text('Não encontrado'),
                                   ),

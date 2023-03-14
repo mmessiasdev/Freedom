@@ -44,12 +44,22 @@ dependencies:
   carousel_slider: ^4.1.1
   intl: ^0.17.0
   flutter_easyloading: ^3.0.5
-  hive: ^2.2.0
+  hive: ^2.0.6
   hive_flutter: ^1.1.0
 
   #local db
   google_fonts: ^4.0.3
   google_maps_flutter: ^2.2.5
+  flutter_native_splash: ^2.2.19
+
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/images/preto.png"
+  android: true
+  ios: true
+# flutter pub run flutter_native_splash:create
+
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/branco.png
+    - assets/images/ilustration/login.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

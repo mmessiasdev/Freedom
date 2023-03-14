@@ -46,9 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: SizedBox(
                       height: 274,
                       child: Image(
-                        image: CachedNetworkImageProvider(
-                          'https://cdn-icons-png.flaticon.com/512/81/81052.png',
-                        ),
+                        image: AssetImage('assets/images/ilustration/login.png'),
                         fit: BoxFit.contain,
                       ),
                     ),

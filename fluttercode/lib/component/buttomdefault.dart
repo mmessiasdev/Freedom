@@ -4,7 +4,8 @@ import 'package:Freedom/component/texts.dart';
 class InputTextButton extends StatelessWidget {
   final String title;
   final Function onClick;
-  const InputTextButton({Key? key, required this.title, required this.onClick})
+  final Color? color;
+  const InputTextButton({Key? key, required this.title, required this.onClick, this.color})
       : super(key: key);
 
   @override
@@ -12,14 +13,14 @@ class InputTextButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Color.fromRGBO(19, 68, 90, 1),
+        backgroundColor: color ?? Color.fromRGBO(19, 68, 90, 1),
         minimumSize: const Size(double.maxFinite, 50),
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(6.0)),
         ),
       ),
-      onPressed: () {
+      onPressed: () { 
         FocusScope.of(context).requestFocus(FocusNode());
         onClick();
       },

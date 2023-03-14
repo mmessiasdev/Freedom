@@ -91,35 +91,36 @@ class AuthController extends GetxController {
     }
   }
 
-  // void posting({required String content}) async {
-  //   try {
-  //     var client = http.Client();
+  void posting(
+      {required String content,
+      required String email,
+      required String password}) async {
+    try {
+      EasyLoading.show(
+        status: 'Loading...',
+        dismissOnTap: false,
+      );
+      var result = await RemoteAuthService().signIn(
+        email: email,
+        password: password,
+      );
+      String token = json.decode(result.body)['jwt'];
 
-  //     EasyLoading.show(
-  //       status: 'Loading...',
-  //       dismissOnTap: false,
-  //     );
-  //     signIn(email: email, password: password);
-      
-
-      
-  //     var result = await RemoteAuthService().getProfile(token: token);
-
-  //     String token = json.decode(result.body)['jwt'];
-  //     var userResult =
-  //         await RemoteAuthService().addPost(token: token, content: content);
-  //     if (userResult.statusCode == 200) {
-  //       EasyLoading.showSuccess("Bem vindo ao Freedom.");
-  //       Navigator.of(Get.overlayContext!).pop();
-  //     } else {
-  //       EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
-  //     }
-  //   } catch (e) {
-  //     EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
-  //   } finally {
-  //     EasyLoading.dismiss();
-  //   }
-  // }
+      var userResult =
+          await RemoteAuthService().addPost(token: token, content: content);
+      if (userResult.statusCode == 200) {
+        EasyLoading.showSuccess("Seu relato foi enviado para aprovação. Dentro de alguens minutos ele estará disponível.");
+        Navigator.of(Get.overlayContext!).pop();
+      } else {
+        EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
+      }
+    } catch (e) {
+      print(e);
+      EasyLoading.showError('Alguma coisa deu errado.');
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
 
   void signOut() async {
     user.value = null;
