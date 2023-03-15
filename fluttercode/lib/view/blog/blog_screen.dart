@@ -85,8 +85,7 @@ class _BlogPageState extends State<BlogPage> {
                     future: fetchPosts.fetchPostsList(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height,
+                        return Expanded(
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
