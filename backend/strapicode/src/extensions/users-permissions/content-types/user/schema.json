@@ -68,6 +68,12 @@
       "relation": "oneToOne",
       "target": "api::profile.profile",
       "mappedBy": "user"
+    },
+    "post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "users_permissions_users"
     }
   }
 }

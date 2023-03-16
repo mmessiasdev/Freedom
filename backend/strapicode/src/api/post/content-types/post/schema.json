@@ -4,7 +4,7 @@
   "info": {
     "singularName": "post",
     "pluralName": "posts",
-    "displayName": "post",
+    "displayName": "Post",
     "description": ""
   },
   "options": {
@@ -15,10 +15,14 @@
     "content": {
       "type": "text"
     },
-    "users_permissions_user": {
+    "users_permissions_users": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "post"
+    },
+    "email": {
+      "type": "email"
     }
   }
 }
