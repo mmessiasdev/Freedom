@@ -20,9 +20,21 @@ class AccountScreen extends StatelessWidget {
             () => Container(
               color: BackgroundOffColor,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Row(
                   children: [
+                    GestureDetector(  
+                      child: Icon(Icons.arrow_back_ios),
+                      onTap: () {
+                        Navigator.pop(
+                          context,
+                          // MaterialPageRoute(
+                          //   builder: (context) => const SignInScreen(),
+                          // ),
+                        );
+                      },
+                    ),
                     const CircleAvatar(
                       radius: 36,
                       backgroundColor: Color.fromRGBO(112, 53, 64, 1),
@@ -36,8 +48,7 @@ class AccountScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          authController.user.value?.fullName ??
-                              "",
+                          authController.user.value?.fullName ?? "",
                           style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
@@ -54,8 +65,9 @@ class AccountScreen extends StatelessWidget {
           buildAccountCard(title: "Sobre Nós", onClick: () {}),
           buildAccountCard(title: "Termos e serviços", onClick: () {}),
           Obx(() => buildAccountCard(
-              title:
-                  authController.user.value == null ? "Entrar" : "Sair da conta",
+              title: authController.user.value == null
+                  ? "Entrar"
+                  : "Sair da conta",
               onClick: () {
                 if (authController.user.value != null) {
                   authController.signOut();

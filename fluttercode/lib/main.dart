@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:Freedom/route/app_page.dart';
 import 'package:Freedom/route/app_route.dart';
 import 'package:flutter/services.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 import 'model/user.dart';
 
@@ -20,6 +21,7 @@ Future main() async {
   ));
 
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(ReagentModelAdapter());
   await Hive.openBox<User>('Reagent');

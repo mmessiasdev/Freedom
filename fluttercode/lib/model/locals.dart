@@ -50,29 +50,38 @@ class Data {
 }
 
 class Attributes {
-  String? content;
+  String? title;
+  String? lat;
+  String? long;
+  String? gender;
   String? createdAt;
   String? updatedAt;
-  String? publishedAt;
-  String? name;
 
-  Attributes(u, {this.content, this.createdAt, this.updatedAt, this.publishedAt, this.name});
+  Attributes(
+      {this.title,
+      this.lat,
+      this.long,
+      this.gender,
+      this.createdAt,
+      this.updatedAt});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    content = json['attributes']['content'];
+    title = json['attributes']['title'];
+    lat = json['attributes']['lat'];
+    long = json['attributes']['long'];  
+    gender = json['attributes']['gender'];
     createdAt = json['attributes']['createdAt'];
     updatedAt = json['attributes']['updatedAt'];
-    publishedAt = json['attributes']['publishedAt'];
-    name = json['attributes']['email'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['content'] = this.content;
+    data['title'] = this.title;
+    data['lat'] = this.lat;
+    data['long'] = this.long;
+    data['gender'] = this.gender;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['publishedAt'] = this.publishedAt;
-    data['email'] = this.name;
     return data;
   }
 }

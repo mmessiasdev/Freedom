@@ -1,4 +1,4 @@
-import '../model/post.dart';
+import '../../model/post.dart';
 
 abstract class Repositories {
   //get

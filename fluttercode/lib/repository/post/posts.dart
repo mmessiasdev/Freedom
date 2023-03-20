@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:Freedom/repository/repositories.dart';
+import 'package:Freedom/repository/post/repositories.dart';
 import 'package:http/http.dart' as http;
 
-import '../const.dart';
-import '../model/post.dart';
+import '../../const.dart';
+import '../../model/post.dart';
 
 class PostsRepository implements Repositories {
   late Attributes product;

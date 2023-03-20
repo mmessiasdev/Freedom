@@ -4,8 +4,9 @@ import '../../../component/colors.dart';
 import '../../../component/texts.dart';
 
 class PostContainer extends StatelessWidget {
-  PostContainer({Key? key, required this.content}) : super(key: key);
+  PostContainer({Key? key, required this.content, required this.name}) : super(key: key);
   String content;
+  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class PostContainer extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: SubText(
-                          text: 'Nome',
+                          text: name,
                           color: Colors.black,
                           align: TextAlign.start,),
                     ),

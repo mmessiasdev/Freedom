@@ -1,18 +1,30 @@
-import 'dart:ui';
-
-import 'package:Freedom/view/account/account_screen.dart';
+import 'package:Freedom/controller/map.dart';
+import 'package:Freedom/model/locals.dart';
+import 'package:Freedom/service/remote_service/local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:Freedom/component/header.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../component/colors.dart';
 import '../../component/texts.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final controllerMap = Get.put(MapController());
+  Attributes? data;
 
   @override
   Widget build(BuildContext context) {
+    controllerMap.getPosition();
+
     return SafeArea(
         child: Column(
       children: [
@@ -21,16 +33,22 @@ class HomeScreen extends StatelessWidget {
           child: Stack(
             children: [
               Expanded(
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(46.811398, -71.204221),
-                    zoom: 18,
+                child: GetBuilder<MapController>(
+                  init: controllerMap,
+                  builder: (value) => GoogleMap(
+                    onMapCreated: controllerMap.onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(controllerMap.lat.toDouble(),
+                          controllerMap.long.toDouble()),
+                      zoom: 13,
+                    ),
+                    myLocationEnabled: true,
                   ),
                 ),
               ),
               Container(
-                height: 130,
-                decoration: BoxDecoration(
+                height: 200,
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -58,7 +76,14 @@ class HomeScreen extends StatelessWidget {
                                   text:
                                       'Saiba tudo o que acontece \n e onde acontece.',
                                   color: OffColor,
-                                  align: TextAlign.center)
+                                  align: TextAlign.center),
+                              Obx(
+                                () => SubText(
+                                    text:
+                                        'Sua localização: \n ${controllerMap.lat} e ${controllerMap.long}',
+                                    color: OffColor,
+                                    align: TextAlign.center),
+                              )
                             ],
                           ),
                         ),
@@ -78,12 +103,16 @@ class HomeScreen extends StatelessWidget {
                                   size: 30,
                                 ),
                               ),
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const AccountScreen(),
-                                ),
-                              ),
+                              onTap: () {
+                                getLocalList();
+                                print(getLocalList());
+                              },
+                              // onTap: () => Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const AccountScreen(),
+                              //   ),
+                              // ),
                             ),
                           ),
                         ),

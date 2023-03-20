@@ -1,13 +1,12 @@
 import 'package:Freedom/component/colors.dart';
 import 'package:Freedom/component/header.dart';
 import 'package:Freedom/component/texts.dart';
-import 'package:Freedom/const.dart';
 import 'package:Freedom/controller/posts.dart';
 import 'package:Freedom/model/post.dart';
-import 'package:Freedom/repository/posts.dart';
 import 'package:Freedom/view/blog/components/postcontainer.dart';
 import 'package:flutter/material.dart';
 
+import '../../repository/post/posts.dart';
 import 'blog_post.dart';
 
 //ignore: must_be_immutable
@@ -55,13 +54,15 @@ class _BlogPageState extends State<BlogPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SecundaryText(
-                            text: 'O que aconteceu?',
-                            color: TerciaryColor,
-                            align: TextAlign.start),
+                          text: 'O que aconteceu?',
+                          color: TerciaryColor,
+                          align: TextAlign.start,
+                        ),
                         SubText(
-                            text: 'Nós queremos saber!',
-                            color: OffColor,
-                            align: TextAlign.start),
+                          text: 'Nós queremos saber!',
+                          color: OffColor,
+                          align: TextAlign.start,
+                        ),
                       ],
                     ),
                     GestureDetector(
@@ -80,7 +81,8 @@ class _BlogPageState extends State<BlogPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: FutureBuilder<List<Attributes>>(
                     future: fetchPosts.fetchPostsList(),
                     builder: (context, snapshot) {
@@ -98,9 +100,11 @@ class _BlogPageState extends State<BlogPage> {
                                   return Column(
                                     children: [
                                       Center(
-                                          child: PostContainer(
-                                        content: renders.content.toString(),
-                                      )),
+                                        child: PostContainer(
+                                          content: renders.content.toString(),
+                                          name: renders.name.toString(),
+                                        ),
+                                      ),
                                       const SizedBox(
                                         height: 20,
                                       ),

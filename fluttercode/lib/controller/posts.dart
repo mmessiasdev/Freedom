@@ -1,5 +1,5 @@
 import '../model/post.dart';
-import '../repository/repositories.dart';
+import '../repository/post/repositories.dart';
 
 class PostsController {
   PostsController(this._repositories);

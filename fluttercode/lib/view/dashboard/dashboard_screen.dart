@@ -19,7 +19,7 @@ class DashboardScreen extends StatelessWidget {
         body: SafeArea(
           child: IndexedStack(
             index: controller.tabIndex,
-            children: const [
+            children: [
               HomeScreen(),
               BlogPage(),
               ComplaintScreen(),

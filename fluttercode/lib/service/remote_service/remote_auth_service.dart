@@ -68,12 +68,9 @@ class RemoteAuthService {
     required String content,
     required String token,
   }) async {
-    final body = {"data": {
-      "content": content
-    }};
-    print(body);
+    final body = {"content": content};
     var response = await client.post(
-      Uri.parse('$baseUrl/api/posts'),
+      Uri.parse('$baseUrl/api/post/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
