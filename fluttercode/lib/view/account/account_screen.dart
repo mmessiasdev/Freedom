@@ -1,9 +1,12 @@
+import 'package:Freedom/component/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Freedom/component/header.dart';
 import 'package:Freedom/controller/controllers.dart';
 
+import '../../component/buttomdefault.dart';
 import '../../component/colors.dart';
+import '../../component/infoinputlogin.dart';
 import 'auth/sign_in_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -24,7 +27,7 @@ class AccountScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Row(
                   children: [
-                    GestureDetector(  
+                    GestureDetector(
                       child: Icon(Icons.arrow_back_ios),
                       onTap: () {
                         Navigator.pop(
@@ -48,11 +51,14 @@ class AccountScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          authController.user.value?.fullName ?? "",
+                          authController.user.value == null
+                              ? "Faça Login"
+                              : authController.user.value!.fullName,
                           style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Color.fromRGBO(146, 146, 146, 1)),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromRGBO(146, 146, 146, 1),
+                          ),
                         )
                       ],
                     )
@@ -62,22 +68,48 @@ class AccountScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 50),
-          buildAccountCard(title: "Sobre Nós", onClick: () {}),
-          buildAccountCard(title: "Termos e serviços", onClick: () {}),
-          Obx(() => buildAccountCard(
-              title: authController.user.value == null
-                  ? "Entrar"
-                  : "Sair da conta",
-              onClick: () {
-                if (authController.user.value != null) {
-                  authController.signOut();
-                } else {
-                  Navigator.push(
+          // buildAccountCard(title: "Sobre Nós", onClick: () {}),
+          // buildAccountCard(title: "Termos e serviços", onClick: () {}),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Obx(
+              () => Column(
+                children: [
+                  InfoInputLogin(
+                    title: 'Nome: ${authController.user.value == null ? "" : authController.user.value?.fullName}',
+                  ),
+                  InfoInputLogin(
+                    title: 'Email: ${authController.user.value == null ? "" : authController.user.value?.email}',
+                  ),
+                  InfoInputLogin(
+                    title: 'Id: ${authController.user.value == null ? "" : authController.user.value?.id}',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: InputTextButton(
+                title: authController.user.value == null
+                    ? "Entrar"
+                    : "Sair da conta",
+                onClick: () {
+                  if (authController.user.value != null) {
+                    authController.signOut();
+                  } else {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SignInScreen()));
-                }
-              }))
+                        builder: (context) => const SignInScreen(),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -97,11 +129,7 @@ class AccountScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
-              ),
+              SubText(text: title, color: TerciaryColor, align: TextAlign.start)
             ],
           ),
         ),

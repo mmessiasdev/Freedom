@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../component/colors.dart';
 import '../../component/texts.dart';
+import '../account/account_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -77,13 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       'Saiba tudo o que acontece \n e onde acontece.',
                                   color: OffColor,
                                   align: TextAlign.center),
-                              Obx(
-                                () => SubText(
-                                    text:
-                                        'Sua localização: \n ${controllerMap.lat} e ${controllerMap.long}',
-                                    color: OffColor,
-                                    align: TextAlign.center),
-                              )
                             ],
                           ),
                         ),
@@ -103,16 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   size: 30,
                                 ),
                               ),
-                              onTap: () {
-                                getLocalList();
-                                print(getLocalList());
-                              },
-                              // onTap: () => Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const AccountScreen(),
-                              //   ),
-                              // ),
+                              // onTap: () {
+                              //   getLocalList();
+                              //   print(getLocalList());
+                              // },
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AccountScreen(),
+                                ),
+                              ),
                             ),
                           ),
                         ),

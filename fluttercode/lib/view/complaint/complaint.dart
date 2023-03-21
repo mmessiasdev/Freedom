@@ -280,7 +280,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 50),
                           child: Column(
                             children: [
                               SizedBox(
