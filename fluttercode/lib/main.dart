@@ -21,10 +21,9 @@ Future main() async {
   ));
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   await Hive.initFlutter();
-  Hive.registerAdapter(ReagentModelAdapter());
   await Hive.openBox<User>('Reagent');
+  Hive.registerAdapter(UserAdapter());
   runApp(const MyApp());
 }
 
