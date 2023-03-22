@@ -6,7 +6,7 @@ part 'user.g.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 4, adapterName: 'Reagent')
 class User{
   @HiveField(0)
   String id;

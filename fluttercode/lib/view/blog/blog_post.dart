@@ -19,15 +19,15 @@ class _ContainerPostState extends State<ContainerPost> {
 
   TextEditingController content = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
 
-  TextEditingController passwordController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     content.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    // emailController.dispose();
+    // passwordController.dispose();
     super.dispose();
   }
 
@@ -59,35 +59,35 @@ class _ContainerPostState extends State<ContainerPost> {
                       align: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: InputTextField(
-                      title: 'Email',
-                      icon: const Icon(Icons.email_rounded),
-                      textEditingController: emailController,
-                      validation: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return "Esse campo não pode ficar vazio.";
-                        } else if (!value.isValidEmail) {
-                          return "Insira um email válido.";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  InputTextField(
-                    title: 'Password',
-                    obsecureText: true,
-                    icon: const Icon(Icons.lock),
-                    textEditingController: passwordController,
-                    validation: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Esse campo não pode ficar vazio.";
-                      }
-                      return null;
-                    },
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 20),
+                  //   child: InputTextField(
+                  //     title: 'Email',
+                  //     icon: const Icon(Icons.email_rounded),
+                  //     textEditingController: emailController,
+                  //     validation: (String? value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return "Esse campo não pode ficar vazio.";
+                  //       } else if (!value.isValidEmail) {
+                  //         return "Insira um email válido.";
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 10),
+                  // InputTextField(
+                  //   title: 'Password',
+                  //   obsecureText: true,
+                  //   icon: const Icon(Icons.lock),
+                  //   textEditingController: passwordController,
+                  //   validation: (String? value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return "Esse campo não pode ficar vazio.";
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 50),
                     child: Center(
@@ -120,8 +120,6 @@ class _ContainerPostState extends State<ContainerPost> {
                         if (_formKey.currentState!.validate()) {
                           authController.posting(
                             content: content.text,
-                            email: emailController.text,
-                            password: passwordController.text,
                           );
                         }
                       },

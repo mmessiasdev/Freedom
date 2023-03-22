@@ -52,6 +52,8 @@ dependencies:
   google_maps_flutter: ^2.2.5
   flutter_native_splash: ^2.2.19
   geolocator: ^7.7.0
+  shared_preferences: ^2.0.20
+  flutter_secure_storage: ^8.0.0
 
 
 flutter_native_splash:

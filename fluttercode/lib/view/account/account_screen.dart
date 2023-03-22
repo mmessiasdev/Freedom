@@ -53,7 +53,7 @@ class AccountScreen extends StatelessWidget {
                         Text(
                           authController.user.value == null
                               ? "Faça Login"
-                              : authController.user.value!.fullName,
+                              : authController.user.value!.fullName,  
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,

@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../../const.dart';
 
 class RemoteAuthService {
   var client = http.Client();
+  final storage = FlutterSecureStorage();
 
   Future<dynamic> signUp({
     required String email,
@@ -64,7 +66,31 @@ class RemoteAuthService {
     return response;
   }
 
+  Future<void> storeToken(String token) async {
+    await storage.write(key: "token", value: token);
+  } 
+
+  Future<String?> getToken(String token) async {
+    return await storage.read(key: "token");
+  }
+
   Future addPost({
+    required String content,
+    required String token,
+  }) async {
+    final body = {"content": content};
+    var response = await client.post(
+      Uri.parse('$baseUrl/api/post/me'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode(body),
+    );
+    return response;
+  }
+
+  Future addComplaint({
     required String content,
     required String token,
   }) async {

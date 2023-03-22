@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:Freedom/service/local_service/local_auth_service.dart';
 import 'package:Freedom/service/remote_service/remote_auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../const.dart';
 import '../model/user.dart';
@@ -67,12 +69,15 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
+      // User savedUser = await getSavedUser();
+      // print(savedUser);
+
       if (result.statusCode == 200) {
         String token = json.decode(result.body)['jwt'];
         var userResult = await RemoteAuthService().getProfile(token: token);
-        print(token);
         if (userResult.statusCode == 200) {
           user.value = userFromJson(userResult.body);
+          await RemoteAuthService().storeToken(token);
           await _localAuthService.addToken(token: token);
           await _localAuthService.addUser(user: user.value!);
           EasyLoading.showSuccess("Bem vindo ao Freedom");
@@ -91,25 +96,23 @@ class AuthController extends GetxController {
     }
   }
 
-  void posting(
-      {required String content,
-      required String email,
-      required String password}) async {
+  void posting({required String content}) async {
+    await _localAuthService.init();
+
     try {
       EasyLoading.show(
         status: 'Loading...',
         dismissOnTap: false,
       );
-      var result = await RemoteAuthService().signIn(
-        email: email,
-        password: password,
-      );
-      String token = json.decode(result.body)['jwt'];
-
-      var userResult =
-          await RemoteAuthService().addPost(token: token, content: content);
+      var token = await RemoteAuthService().getToken("token"); 
+      print("Token: ${token}");
+      var userResult = await RemoteAuthService().addPost(
+          token: token.toString(), content: content);
+      var tokenCache = LocalAuthService().getToken().toString();
+      print(tokenCache);
       if (userResult.statusCode == 200) {
-        EasyLoading.showSuccess("Seu relato foi enviado para aprovação. Dentro de alguens minutos ele estará disponível.");
+        EasyLoading.showSuccess(
+            "Seu relato foi enviado para aprovação. Dentro de alguens minutos ele estará disponível.");
         Navigator.of(Get.overlayContext!).pop();
       } else {
         EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
