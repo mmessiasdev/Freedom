@@ -1,22 +1,25 @@
 'use strict';
 
 /**
- *  post controller
+ *  complaint controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::post.post', ({Strapi}) => ({
+module.exports = createCoreController('api::complaint.complaint', ({Strapi}) => ({
     async createMe(ctx) {
         try {
             const user = ctx.state.user;
             if(!user){
                 return ctx.badRequest(401, [{ messages: "No athorized user found!"}]);
             }
-            const result = await strapi.entityService.create('api::post.post', {
+            const result = await strapi.entityService.create('api::complaint.complaint', {
                 data: {
-                    content: ctx.request.body.content,
+                    type: ctx.request.body.type,
                     email: user.email,
+                    desc: ctx.request.body.desc,
+                    nivel: ctx.request.body.nivel,
+
                 }
             });
             return result;
@@ -30,7 +33,7 @@ module.exports = createCoreController('api::post.post', ({Strapi}) => ({
             if(!user){
                 return ctx.badRequest(401, [{ messages: "No athorized user found!"}]);
             }
-            const result = await strapi.db.query('api::post.post').findOne({
+            const result = await strapi.db.query('api::complaint.complaint').findOne({
                 where: {
                     user: {
                         id: {

@@ -29,9 +29,15 @@ enum Type {
   out
 }
 
+enum Nivel { low, normal, high }
+
 class _ComplaintScreenState extends State<ComplaintScreen> {
   Type? selectType;
+  Nivel? selectNivel;
   late TextEditingController agres;
+  String type = "";
+  String nivel = "";
+  String desc = "";
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +95,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.agres;
-                                      print(selectType);
+                                      type = "Agressão";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -101,7 +108,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.chant;
-                                      print(selectType);
+                                      type = "Chantagem";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -112,8 +120,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                       : TerciaryColor,
                                   onClick: () {
                                     setState(() {
-                                      selectType = Type.humilh;
-                                      print(selectType);
+                                      type = "Humilhação";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -125,7 +133,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.perseg;
-                                      print(selectType);
+                                      type = "Perseguição";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -137,43 +146,47 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.assedp;
-                                      print(selectType);
+                                      type = "Violência Patrimonial";
+                                      print(type);
                                     });
                                   },
                                 ),
                                 ButtomCont(
-                                  text: 'Assedio \nVerbal',
+                                  text: 'Assédio \nVerbal',
                                   cor: selectType == Type.assedv
                                       ? lightColor
                                       : TerciaryColor,
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.assedv;
-                                      print(selectType);
+                                      type = "Assédio Verbal";
+                                      print(type);
                                     });
                                   },
                                 ),
                                 ButtomCont(
-                                  text: 'Assedio \nPsicológico',
+                                  text: 'Assédio \nPsicológico',
                                   cor: selectType == Type.assedps
                                       ? lightColor
                                       : TerciaryColor,
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.assedps;
-                                      print(selectType);
+                                      type = "Assédio Psicológico";
+                                      print(type);
                                     });
                                   },
                                 ),
                                 ButtomCont(
-                                  text: 'Assedio \nFísico',
+                                  text: 'Assédio \nFísico',
                                   cor: selectType == Type.assedf
                                       ? lightColor
                                       : TerciaryColor,
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.assedf;
-                                      print(selectType);
+                                      type = "Assédio Físico";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -185,7 +198,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   onClick: () {
                                     setState(() {
                                       selectType = Type.out;
-                                      print(selectType);
+                                      type = "Outros";
+                                      print(type);
                                     });
                                   },
                                 ),
@@ -219,55 +233,48 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  color: TerciaryColor,
-                                                  border: Border.all(
-                                                      color: lightColor)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 20),
-                                                child: SubText(
-                                                    text: 'baixo',
-                                                    color: lightColor,
-                                                    align: TextAlign.center),
-                                              ),
+                                            NivelButtom(
+                                              title: 'baixo',
+                                              color: SecudaryColor,
+                                              backc: selectNivel == Nivel.low
+                                                  ? PrimaryColor
+                                                  : TerciaryColor,
+                                              onClick: () {
+                                                setState(() {
+                                                  selectNivel = Nivel.low;
+                                                  nivel = "Baixo";
+                                                  print(nivel);
+                                                });
+                                              },
                                             ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  color: Color.fromRGBO(
-                                                      180, 36, 62, 1),
-                                                  border: Border.all(
-                                                      color: lightColor)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 20),
-                                                child: SubText(
-                                                    text: 'médio',
-                                                    color: lightColor,
-                                                    align: TextAlign.center),
-                                              ),
+                                            NivelButtom(
+                                              title: 'médio',
+                                              color: SecudaryColor,
+                                              backc: selectNivel == Nivel.normal
+                                                  ? PrimaryColor
+                                                  : TerciaryColor,
+                                              onClick: () {
+                                                setState(() {
+                                                  selectNivel = Nivel.normal;
+                                                  nivel = "Médio";
+                                                  print(nivel);
+                                                });
+                                              },
                                             ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  color: Color.fromRGBO(
-                                                      255, 0, 47, 1),
-                                                  border: Border.all(
-                                                      color: lightColor)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 20),
-                                                child: SubText(
-                                                    text: 'grave',
-                                                    color: lightColor,
-                                                    align: TextAlign.center),
-                                              ),
+                                            NivelButtom(
+                                              title: 'alto',
+                                              backc: selectNivel == Nivel.high
+                                                  ? PrimaryColor
+                                                  : TerciaryColor,
+                                              color: Color.fromARGB(
+                                                  255, 229, 255, 0),
+                                              onClick: () {
+                                                setState(() {
+                                                  selectNivel = Nivel.high;
+                                                  nivel = "Alto";
+                                                  print(nivel);
+                                                });
+                                              },
                                             ),
                                           ],
                                         ),
@@ -280,7 +287,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 50),
+                          padding: const EdgeInsets.symmetric(vertical: 60),
                           child: Column(
                             children: [
                               SizedBox(
@@ -291,7 +298,10 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                   align: TextAlign.center,
                                 ),
                               ),
-                              InputTextField(title: 'Como se sente?')
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: InputTextField(title: 'Como se sente?'),
+                              )
                             ],
                           ),
                         ),
@@ -344,6 +354,37 @@ class ButtomCont extends StatelessWidget {
       ),
       onTap: () {
         onClick();
+      },
+    );
+  }
+}
+
+class NivelButtom extends StatelessWidget {
+  NivelButtom(
+      {Key? key,
+      required this.title,
+      required this.color,
+      this.onClick,
+      required this.backc})
+      : super(key: key);
+  String title;
+  Color color;
+  Color backc;
+  final Function? onClick;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        decoration:
+            BoxDecoration(color: backc, border: Border.all(color: lightColor)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+          child: SubText(text: title, color: color, align: TextAlign.center),
+        ),
+      ),
+      onTap: () {
+        onClick!();
       },
     );
   }

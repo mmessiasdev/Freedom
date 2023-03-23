@@ -98,7 +98,6 @@ class AuthController extends GetxController {
 
   void posting({required String content}) async {
     await _localAuthService.init();
-
     try {
       EasyLoading.show(
         status: 'Loading...',
@@ -108,8 +107,6 @@ class AuthController extends GetxController {
       print("Token: ${token}");
       var userResult = await RemoteAuthService().addPost(
           token: token.toString(), content: content);
-      var tokenCache = LocalAuthService().getToken().toString();
-      print(tokenCache);
       if (userResult.statusCode == 200) {
         EasyLoading.showSuccess(
             "Seu relato foi enviado para aprovação. Dentro de alguens minutos ele estará disponível.");

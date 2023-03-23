@@ -69,16 +69,22 @@
       "target": "api::profile.profile",
       "mappedBy": "user"
     },
-    "post": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::post.post",
-      "inversedBy": "users_permissions_users"
-    },
     "places": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::place.place",
+      "mappedBy": "users_permissions_user"
+    },
+    "complaints": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::complaint.complaint",
+      "mappedBy": "users_permissions_user"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
       "mappedBy": "users_permissions_user"
     }
   }

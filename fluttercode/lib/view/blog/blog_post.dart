@@ -118,9 +118,11 @@ class _ContainerPostState extends State<ContainerPost> {
                       color: TerciaryColor,
                       onClick: () {
                         if (_formKey.currentState!.validate()) {
-                          authController.posting(
-                            content: content.text,
-                          );
+                          setState(() {
+                            authController.posting(
+                              content: content.text,
+                            );
+                          });
                         }
                       },
                     ),

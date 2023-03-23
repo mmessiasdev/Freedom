@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'model/user.dart';
 
 Future main() async {
-
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: TerciaryColor, // cor da barra superior
     statusBarIconBrightness: Brightness.dark, // ícones da barra superior
