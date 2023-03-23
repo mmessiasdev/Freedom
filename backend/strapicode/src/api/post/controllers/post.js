@@ -10,6 +10,7 @@ module.exports = createCoreController('api::post.post', ({Strapi}) => ({
     async createMe(ctx) {
         try {
             const user = ctx.state.user;
+
             if(!user){
                 return ctx.badRequest(401, [{ messages: "No athorized user found!"}]);
             }

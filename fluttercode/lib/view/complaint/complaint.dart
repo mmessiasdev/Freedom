@@ -2,6 +2,7 @@ import 'package:Freedom/component/colors.dart';
 import 'package:Freedom/component/header.dart';
 import 'package:Freedom/component/inputdefault.dart';
 import 'package:Freedom/component/texts.dart';
+import 'package:Freedom/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -34,10 +35,16 @@ enum Nivel { low, normal, high }
 class _ComplaintScreenState extends State<ComplaintScreen> {
   Type? selectType;
   Nivel? selectNivel;
-  late TextEditingController agres;
   String type = "";
   String nivel = "";
-  String desc = "";
+  TextEditingController descController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    descController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -288,28 +295,40 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 60),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                child: SubText(
-                                  text:
-                                      'Caso queria, nos conte como se sente...',
-                                  color: lightColor,
-                                  align: TextAlign.center,
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  child: SubText(
+                                    text:
+                                        'Caso queria, nos conte como se sente...',
+                                    color: lightColor,
+                                    align: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: InputTextField(title: 'Como se sente?'),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: InputTextField(
+                                      title: 'Como se sente?',
+                                      textEditingController: descController),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 30),
                           child: InputTextButton(
                             title: 'Enviar',
-                            onClick: () {},
+                            onClick: () {
+                              if (_formKey.currentState!.validate()) {
+                                authController.complaining(
+                                    type: type,
+                                    nivel: nivel,
+                                    desc: descController.text);
+                              }
+                            },
                           ),
                         )
                       ],

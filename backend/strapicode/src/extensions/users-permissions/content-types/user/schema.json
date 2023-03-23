@@ -73,13 +73,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::place.place",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     },
     "complaints": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::complaint.complaint",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     },
     "posts": {
       "type": "relation",

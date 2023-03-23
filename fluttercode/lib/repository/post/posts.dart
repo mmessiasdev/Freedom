@@ -18,7 +18,7 @@ class PostsRepository implements Repositories {
   Future<List<Attributes>> getPostsList() async {
     // TODO: implement getPostsList
     List<Attributes> listItens = [];
-    var url = Uri.parse('$baseUrl/api/posts?populate=*');
+    var url = Uri.parse('$baseUrl/api/posts?_sort=createdAt:desc');
     var response = await http.get(url);
     print('status code : ${response.statusCode}');
     var body = jsonDecode(response.body);

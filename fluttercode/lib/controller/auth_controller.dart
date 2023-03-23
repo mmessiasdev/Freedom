@@ -1,13 +1,10 @@
 import 'dart:convert';
+import 'package:Freedom/view/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:Freedom/service/local_service/local_auth_service.dart';
 import 'package:Freedom/service/remote_service/remote_auth_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../const.dart';
 import '../model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +15,7 @@ class AuthController extends GetxController {
 
   @override
   void onInit() async {
-    await _localAuthService.init();
+    // await _localAuthService.init();
     super.onInit();
   }
 
@@ -38,12 +35,11 @@ class AuthController extends GetxController {
       if (result.statusCode == 200) {
         String token = json.decode(result.body)['jwt'];
         var userResult = await RemoteAuthService()
-            .createProfile(fullName: fullName, token: token);
+            .createProfile(fullName: fullName, token: token);            
         if (userResult.statusCode == 200) {
-          print(user.value);
           user.value = userFromJson(userResult.body);
-          await _localAuthService.addToken(token: token);
-          await _localAuthService.addUser(user: user.value!);
+          // await _localAuthService.addToken(token: token);
+          // await _localAuthService.addUser(user: user.value!);
           EasyLoading.showSuccess("Bem vindo ao Freedom.");
           Navigator.of(Get.overlayContext!).pop();
         } else {
@@ -69,17 +65,15 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
-      // User savedUser = await getSavedUser();
-      // print(savedUser);
 
       if (result.statusCode == 200) {
         String token = json.decode(result.body)['jwt'];
         var userResult = await RemoteAuthService().getProfile(token: token);
         if (userResult.statusCode == 200) {
           user.value = userFromJson(userResult.body);
-          await RemoteAuthService().storeToken(token);
-          await _localAuthService.addToken(token: token);
-          await _localAuthService.addUser(user: user.value!);
+          await LocalAuthService().storeToken(token);
+          // await _localAuthService.addToken(token: token);
+          // await _localAuthService.addUser(user: user.value!);
           EasyLoading.showSuccess("Bem vindo ao Freedom");
           Navigator.of(Get.overlayContext!).pop();
         } else {
@@ -97,20 +91,49 @@ class AuthController extends GetxController {
   }
 
   void posting({required String content}) async {
-    await _localAuthService.init();
     try {
       EasyLoading.show(
         status: 'Loading...',
         dismissOnTap: false,
       );
-      var token = await RemoteAuthService().getToken("token"); 
-      print("Token: ${token}");
-      var userResult = await RemoteAuthService().addPost(
-          token: token.toString(), content: content);
+      var token = await LocalAuthService().getSecureToken("token");
+      var userResult = await RemoteAuthService()
+          .addPost(token: token.toString(), content: content);
       if (userResult.statusCode == 200) {
         EasyLoading.showSuccess(
-            "Seu relato foi enviado para aprovação. Dentro de alguens minutos ele estará disponível.");
+            "Seu relato foi enviado. Arraste a tela para baixo e atualize para ver!");
         Navigator.of(Get.overlayContext!).pop();
+      } else {
+        EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
+      }
+    } catch (e) {
+      print(e);
+      EasyLoading.showError('Alguma coisa deu errado.');
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
+
+  void complaining(
+      {required String type,
+      required String nivel,
+      required String desc}) async {
+    // await _localAuthService.init();
+    try {
+      EasyLoading.show(
+        status: 'Loading...',
+        dismissOnTap: false,
+      );
+      var token = await LocalAuthService().getSecureToken("token");
+      var userResult = await RemoteAuthService().addComplaint(
+          token: token.toString(), type: type, nivel: nivel, desc: desc);
+      if (userResult.statusCode == 200) {
+        EasyLoading.showSuccess("Denuncia enviada.");
+        Navigator.of(Get.overlayContext!).push(
+          MaterialPageRoute(
+            builder: (context) => DashboardScreen(),
+          ),
+        );
       } else {
         EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
       }
@@ -124,6 +147,6 @@ class AuthController extends GetxController {
 
   void signOut() async {
     user.value = null;
-    await _localAuthService.clear();
+    // await _localAuthService.clear();
   }
 }

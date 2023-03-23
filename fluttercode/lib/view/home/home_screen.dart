@@ -1,6 +1,5 @@
 import 'package:Freedom/controller/map.dart';
 import 'package:Freedom/model/locals.dart';
-import 'package:Freedom/service/remote_service/local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:Freedom/component/header.dart';
 import 'package:get/get.dart';

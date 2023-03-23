@@ -22,7 +22,6 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox<User>('Reagent');
-  Hive.registerAdapter(UserAdapter());
   runApp(const MyApp());
 }
 

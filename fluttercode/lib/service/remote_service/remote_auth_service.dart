@@ -66,14 +66,6 @@ class RemoteAuthService {
     return response;
   }
 
-  Future<void> storeToken(String token) async {
-    await storage.write(key: "token", value: token);
-  } 
-
-  Future<String?> getToken(String token) async {
-    return await storage.read(key: "token");
-  }
-
   Future addPost({
     required String content,
     required String token,
@@ -91,12 +83,18 @@ class RemoteAuthService {
   }
 
   Future addComplaint({
-    required String content,
+    required String type,
+    required String nivel,
+    required String desc,
     required String token,
   }) async {
-    final body = {"content": content};
+    final body = {
+      "type": type,
+      "nivel": nivel,
+      "desc": desc
+    };
     var response = await client.post(
-      Uri.parse('$baseUrl/api/post/me'),
+      Uri.parse('$baseUrl/api/complaint/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
