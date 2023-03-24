@@ -2,18 +2,44 @@ import 'dart:convert';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
-class User{
-  String id;
-  String fullName;
-  String email;
-  String? image;
+class User {
+  int? id;
+  String? email;
+  String? createdAt;
+  String? updatedAt;
+  Null? age;
+  String? fullName;
+  Null? image;
 
-  User({required this.id,required this.fullName,required this.email,this.image});
+  User(
+      {this.id,
+      this.email,
+      this.createdAt,
+      this.updatedAt,
+      this.age,
+      this.fullName,
+      this.image});
 
-  factory User.fromJson(Map<String, dynamic> data) => User(
-      id: data['id'].toString(),
-      fullName: data['fullName'].toString(),
-      email: data['email'],
-      image: data['image'] == null ? null : data['image']['url'],
-  );
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    email = json['email'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    age = json['age'];
+    fullName = json['fullName'];
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['email'] = this.email;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['age'] = this.age;
+    data['fullName'] = this.fullName;
+    data['image'] = this.image;
+    return data;
+  }
 }
+

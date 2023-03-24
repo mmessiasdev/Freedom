@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AccountScreen(),
+                                  builder: (context) => AccountScreen(),
                                 ),
                               ),
                             ),

@@ -1,4 +1,6 @@
 import 'package:Freedom/component/texts.dart';
+import 'package:Freedom/model/user.dart';
+import 'package:Freedom/service/local_service/local_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Freedom/component/header.dart';
@@ -10,7 +12,14 @@ import '../../component/infoinputlogin.dart';
 import 'auth/sign_in_screen.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+  AccountScreen({Key? key}) : super(key: key);
+  
+
+  Future<User> savedLogin(User user) async{
+    User saveLogin = await LocalAuthService().getSecureUser();
+    return saveLogin;
+  }
+    
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +62,7 @@ class AccountScreen extends StatelessWidget {
                         Text(
                           authController.user.value == null
                               ? "Faça Login"
-                              : authController.user.value!.fullName,  
+                              : authController.user.value!.fullName!,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,

@@ -40,6 +40,8 @@ class AuthController extends GetxController {
           user.value = userFromJson(userResult.body);
           // await _localAuthService.addToken(token: token);
           // await _localAuthService.addUser(user: user.value!);
+          User savedUser = await LocalAuthService().getSecureUser();
+          print(savedUser);
           EasyLoading.showSuccess("Bem vindo ao Freedom.");
           Navigator.of(Get.overlayContext!).pop();
         } else {
@@ -71,7 +73,9 @@ class AuthController extends GetxController {
         var userResult = await RemoteAuthService().getProfile(token: token);
         if (userResult.statusCode == 200) {
           user.value = userFromJson(userResult.body);
+          print(user.value);  
           await LocalAuthService().storeToken(token);
+          await LocalAuthService().storeUser(user.value!);
           // await _localAuthService.addToken(token: token);
           // await _localAuthService.addUser(user: user.value!);
           EasyLoading.showSuccess("Bem vindo ao Freedom");

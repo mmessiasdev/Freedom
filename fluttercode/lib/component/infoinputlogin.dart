@@ -13,18 +13,22 @@ class InfoInputLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 30,
-        color: Color.fromARGB(255, 215, 215, 215),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: SubText(
-                text: title, color: TerciaryColorOff, align: TextAlign.start),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SubText(text: title, color: TerciaryColorOff, align: TextAlign.start),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 30,
+            color: Color.fromARGB(255, 215, 215, 215),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
