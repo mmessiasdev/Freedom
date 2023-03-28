@@ -6,8 +6,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class InfoInputLogin extends StatelessWidget {
-  InfoInputLogin({Key? key, required this.title}) : super(key: key);
+  InfoInputLogin({Key? key, required this.title, required this.info})
+      : super(key: key);
   String title;
+  String info;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,14 @@ class InfoInputLogin extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 30,
             color: Color.fromARGB(255, 215, 215, 215),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Align(
                 alignment: Alignment.centerLeft,
+                child: SubText(
+                    text: info,
+                    color: TerciaryColorOff,
+                    align: TextAlign.start),
               ),
             ),
           ),

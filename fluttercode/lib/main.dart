@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:Freedom/route/app_page.dart';
 import 'package:Freedom/route/app_route.dart';
+import 'package:Freedom/route/app_page.dart';
 import 'package:flutter/services.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
@@ -21,7 +21,7 @@ Future main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox<User>('Reagent');
+  var box = await Hive.openBox('userToken');
   runApp(const MyApp());
 }
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return  GetMaterialApp(
       getPages: AppPage.list,
       initialRoute: AppRoute.dashboard,
       debugShowCheckedModeBanner: false,

@@ -6,6 +6,7 @@ import 'package:Freedom/extention/string_extention.dart';
 import 'package:Freedom/component/buttomdefault.dart';
 import 'package:Freedom/component/buttomborder.dart';
 import 'package:Freedom/component/inputdefault.dart';
+import 'package:hive/hive.dart';
 
 import 'sign_up_screen.dart';
 
@@ -17,6 +18,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  bool checked = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController(); 
@@ -27,6 +29,18 @@ class _SignInScreenState extends State<SignInScreen> {
     passwordController.dispose();
     super.dispose();
   } 
+
+  late Box infoBox;
+
+  @override
+  void initState(){
+    super.initState();
+    createBox;
+  }
+
+  void createBox() async{
+     var infoBox = await Hive.openBox('logindata');
+  }
 
   @override
   Widget build(BuildContext context) {

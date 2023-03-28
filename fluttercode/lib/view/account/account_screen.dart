@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:Freedom/component/texts.dart';
 import 'package:Freedom/model/user.dart';
 import 'package:Freedom/service/local_service/local_auth_service.dart';
@@ -11,15 +13,37 @@ import '../../component/colors.dart';
 import '../../component/infoinputlogin.dart';
 import 'auth/sign_in_screen.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   AccountScreen({Key? key}) : super(key: key);
-  
 
-  Future<User> savedLogin(User user) async{
-    User saveLogin = await LocalAuthService().getSecureUser();
-    return saveLogin;
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  var email;
+  var fullName;
+  var id;
+  var token;
+
+  @override
+  void initState() {
+    getString();
   }
-    
+
+  void getString() async {
+    var strEmail = await LocalAuthService().getEmail("email");
+    var strFull = await LocalAuthService().getFull("full");
+    var strId = await LocalAuthService().getId("id");
+    var strToken = await LocalAuthService().getSecureToken("token");
+
+    setState(() {
+      email = strEmail.toString();
+      fullName = strFull.toString();
+      id = strId.toString();
+      token = strToken.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,52 +51,50 @@ class AccountScreen extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: ListView(
         children: [
-          MainHeader(),
-          Obx(
-            () => Container(
-              color: BackgroundOffColor,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      child: Icon(Icons.arrow_back_ios),
-                      onTap: () {
-                        Navigator.pop(
-                          context,
-                          // MaterialPageRoute(
-                          //   builder: (context) => const SignInScreen(),
-                          // ),
-                        );
-                      },
+          const MainHeader(),
+          Container(
+            color: BackgroundOffColor,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Icon(Icons.arrow_back_ios),
+                    onTap: () {
+                      Navigator.pop(
+                        context,
+                        // MaterialPageRoute(
+                        //   builder: (context) => const SignInScreen(),
+                        // ),
+                      );
+                    },
+                  ),
+                  const CircleAvatar(
+                    radius: 36,
+                    backgroundColor: Color.fromRGBO(112, 53, 64, 1),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 30,
                     ),
-                    const CircleAvatar(
-                      radius: 36,
-                      backgroundColor: Color.fromRGBO(112, 53, 64, 1),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 30,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    children: [
+                      Text(
+                        fullName == "null" ? "Faça Login" : fullName,
+                        // authController.user.value == null
+                        //     ? "Faça Login"
+                        //     : authController.user.value!.fullName!,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(146, 146, 146, 1),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      children: [
-                        Text(
-                          authController.user.value == null
-                              ? "Faça Login"
-                              : authController.user.value!.fullName!,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(146, 146, 146, 1),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
@@ -81,42 +103,48 @@ class AccountScreen extends StatelessWidget {
           // buildAccountCard(title: "Termos e serviços", onClick: () {}),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Obx(
-              () => Column(
-                children: [
-                  InfoInputLogin(
-                    title: 'Nome: ${authController.user.value == null ? "" : authController.user.value?.fullName}',
-                  ),
-                  InfoInputLogin(
-                    title: 'Email: ${authController.user.value == null ? "" : authController.user.value?.email}',
-                  ),
-                  InfoInputLogin(
-                    title: 'Id: ${authController.user.value == null ? "" : authController.user.value?.id}',
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                InfoInputLogin(
+                  title: 'Nome:',
+                  info: fullName == "null" ? "" : fullName,
+                  // 'Nome: ${authController.user.value == null ? "" : authController.user.value?.fullName}',
+                ),
+                InfoInputLogin(
+                  title: 'Email:',
+                  info: email == "null" ? "" : email,
+                  // 'Email: ${authController.user.value == null ? "" : authController.user.value?.email}',
+                ),
+                InfoInputLogin(
+                  title: 'id:',
+                  info: id == "null" ? "" : id,
+                  // 'Id: ${authController.user.value == null ? "" : authController.user.value?.id}',
+                ),
+              ],
             ),
           ),
-          Obx(
-            () => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: InputTextButton(
-                title: authController.user.value == null
-                    ? "Entrar"
-                    : "Sair da conta",
-                onClick: () {
-                  if (authController.user.value != null) {
-                    authController.signOut();
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignInScreen(),
-                      ),
-                    );
-                  }
-                },
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: InputTextButton(
+              title: token == "null" ? "Entrar" : "Sair da conta",
+              onClick: () {
+                if (token != "null") {
+                  authController.signOut();
+                  Navigator.pop(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ],

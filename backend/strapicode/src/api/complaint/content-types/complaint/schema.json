@@ -13,10 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "type": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "nivel": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "desc": {
       "type": "string"

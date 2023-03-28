@@ -1,3 +1,4 @@
+import 'package:Freedom/view/account/auth/sign_in_screen.dart';
 import 'package:get/get.dart';
 import 'package:Freedom/route/app_route.dart';
 import 'package:Freedom/view/dashboard/dashboard_binding.dart';
@@ -8,7 +9,10 @@ class AppPage {
     GetPage(
         name: AppRoute.dashboard,
         page: () => const DashboardScreen(),
-        binding: DashboardBinding()
+        binding: DashboardBinding()),
+    GetPage(
+      name: AppRoute.loginIn,
+      page: () => const SignInScreen(),
     ),
   ];
 }
