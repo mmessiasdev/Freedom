@@ -38,7 +38,7 @@ class PostContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Icon(Icons.favorite_border),
+                // Icon(Icons.favorite_border),
               ],
             ),
             Padding(

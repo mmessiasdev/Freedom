@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../const.dart';
+
 
 class RemoteAuthService {
   var client = http.Client();
@@ -15,7 +17,7 @@ class RemoteAuthService {
   }) async {
     var body = {"username": email, "email": email, "password": password};
     var response = await client.post(
-      Uri.parse('$baseUrl/api/auth/local/register'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/auth/local/register'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(body),
     );
@@ -29,7 +31,7 @@ class RemoteAuthService {
     var body = {"fullName": fullName};
     print(body);
     var response = await client.post(
-      Uri.parse('$baseUrl/api/profile/me'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/profile/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
@@ -45,7 +47,7 @@ class RemoteAuthService {
   }) async {
     var body = {"identifier": email, "password": password};
     var response = await client.post(
-      Uri.parse('$baseUrl/api/auth/local'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/auth/local'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(body),
     );
@@ -57,7 +59,7 @@ class RemoteAuthService {
     required String token,
   }) async {
     var response = await client.get(
-      Uri.parse('$baseUrl/api/profile/me'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/profile/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
@@ -66,13 +68,15 @@ class RemoteAuthService {
     return response;
   }
 
+  
+
   Future addPost({
     required String content,
     required String token,
   }) async {
     final body = {"content": content};
     var response = await client.post(
-      Uri.parse('$baseUrl/api/post/me'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/post/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
@@ -94,7 +98,7 @@ class RemoteAuthService {
       "desc": desc
     };
     var response = await client.post(
-      Uri.parse('$baseUrl/api/complaint/me'),
+      Uri.parse('${dotenv.get('BASEURL').toString()}/api/complaint/me'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"

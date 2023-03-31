@@ -1,12 +1,12 @@
 import 'package:Freedom/component/colors.dart';
 import 'package:Freedom/component/header.dart';
 import 'package:Freedom/component/texts.dart';
-import 'package:Freedom/controller/posts.dart';
 import 'package:Freedom/model/post.dart';
 import 'package:Freedom/view/blog/components/postcontainer.dart';
 import 'package:flutter/material.dart';
-
-import '../../repository/post/posts.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:convert';
 import 'blog_post.dart';
 
 //ignore: must_be_immutable
@@ -18,11 +18,26 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
-  var fetchPosts = PostsController(PostsRepository());
+  Future<List<Attributes>> getPostsList() async {
+    // TODO: implement getPostsList
+    List<Attributes> listItens = [];
+    var url =
+        Uri.parse('${dotenv.get('BASEURL').toString()}/api/posts?sort=id:DESC');
+    var response = await http.get(url);
+    print('status code : ${response.statusCode}');
+    var body = jsonDecode(response.body);
+    // parse
+    var itemCount = body["data"];
+    print(itemCount);
+    for (var i = 0; i < itemCount.length; i++) {
+      listItens.add(Attributes.fromJson(itemCount[i]));
+    }
+    return listItens;
+  }
 
   Future<void> getData() async {
     await Future.delayed(const Duration(seconds: 2));
-    fetchPosts;
+    getPostsList();
     setState(() {});
   }
 
@@ -30,7 +45,7 @@ class _BlogPageState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MainHeader(),
+        const MainHeader(),
         Expanded(
           child: RefreshIndicator(
             backgroundColor: TerciaryColor,
@@ -94,44 +109,44 @@ class _BlogPageState extends State<BlogPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: FutureBuilder<List<Attributes>>(
-                      future: fetchPosts.fetchPostsList(),
+                      future: getPostsList(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Expanded(
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  var renders = snapshot.data![index];
-                                  print(renders.content.toString());
-                                  if (renders != null) {
-                                    return Column(
-                                      children: [
-                                        Center(
-                                          child: PostContainer(
-                                            content: renders.content.toString(),
-                                            name: renders.name.toString(),
-                                          ),
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                var renders = snapshot.data![index];
+                                print(renders.content.toString());
+                                if (renders != null) {
+                                  return Column(
+                                    children: [
+                                      Center(
+                                        child: PostContainer(
+                                          content: renders.content.toString(),
+                                          name: renders.name.toString(),
                                         ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                  return const SizedBox(
-                                    child: Center(
-                                      child: Text('Não encontrado'),
-                                    ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
                                   );
-                                }),
-                          );
+                                }
+                                return const SizedBox(
+                                  child: Center(
+                                    child: Text('Não encontrado'),
+                                  ),
+                                );
+                              });
                         }
-                        return SizedBox(
+                        return Expanded(
                           child: Center(
-                            child: Text('Not Found'),
+                            child: CircularProgressIndicator(
+                              color: TerciaryColor,
+                            ),
                           ),
                         );
                       }),

@@ -9,7 +9,6 @@ import '../../component/colors.dart';
 import '../../component/texts.dart';
 import '../account/account_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -32,18 +31,16 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           child: Stack(
             children: [
-              Expanded(
-                child: GetBuilder<MapController>(
-                  init: controllerMap,
-                  builder: (value) => GoogleMap(
-                    onMapCreated: controllerMap.onMapCreated,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(controllerMap.lat.toDouble(),
-                          controllerMap.long.toDouble()),
-                      zoom: 13,
-                    ),
-                    myLocationEnabled: true,
+              GetBuilder<MapController>(
+                init: controllerMap,
+                builder: (value) => GoogleMap(
+                  onMapCreated: controllerMap.onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(controllerMap.lat.toDouble(),
+                        controllerMap.long.toDouble()),
+                    zoom: 13,
                   ),
+                  myLocationEnabled: true,
                 ),
               ),
               Container(

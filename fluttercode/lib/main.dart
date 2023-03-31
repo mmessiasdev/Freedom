@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:Freedom/route/app_route.dart';
 import 'package:Freedom/route/app_page.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 import 'model/user.dart';
@@ -18,6 +19,8 @@ Future main() async {
     systemNavigationBarIconBrightness:
         Brightness.dark, // ícones da barra inferior
   ));
+
+  await dotenv.load(fileName: ".env");
 
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

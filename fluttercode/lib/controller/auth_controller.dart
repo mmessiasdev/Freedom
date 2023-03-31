@@ -35,8 +35,8 @@ class AuthController extends GetxController {
             .createProfile(fullName: fullName, token: token);
         if (userResult.statusCode == 200) {
           user.value = userFromJson(userResult.body);
-          EasyLoading.showSuccess("Bem vindo ao Freedom.");
-          Navigator.of(Get.overlayContext!).pop();
+          EasyLoading.showSuccess("Conta criada. Confirme suas informações.");
+          Navigator.of(Get.overlayContext!).pushReplacementNamed('/login');
         } else {
           EasyLoading.showError('Alguma coisa deu errado. Tente novamente!');
         }
@@ -142,8 +142,6 @@ class AuthController extends GetxController {
   void signOut() async {
     user.value = null;
     await LocalAuthService().clear();
-    EasyLoading.showError(
-        'Realize login novamente para ter acesso ás principais funções do app.');
     Navigator.of(Get.overlayContext!).pushReplacementNamed('/login');
   }
 }

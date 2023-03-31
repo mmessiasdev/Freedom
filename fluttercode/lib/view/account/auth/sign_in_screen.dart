@@ -6,6 +6,8 @@ import 'package:Freedom/extention/string_extention.dart';
 import 'package:Freedom/component/buttomdefault.dart';
 import 'package:Freedom/component/buttomborder.dart';
 import 'package:Freedom/component/inputdefault.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 
 import 'sign_up_screen.dart';
@@ -21,25 +23,25 @@ class _SignInScreenState extends State<SignInScreen> {
   bool checked = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController(); 
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  } 
+  }
 
   late Box infoBox;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     createBox;
   }
 
-  void createBox() async{
-     var infoBox = await Hive.openBox('logindata');
+  void createBox() async {
+    var infoBox = await Hive.openBox('logindata');
   }
 
   @override
@@ -60,7 +62,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: SizedBox(
                       height: 274,
                       child: Image(
-                        image: AssetImage('assets/images/ilustration/login.png'),
+                        image:
+                            AssetImage('assets/images/ilustration/login.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -102,14 +105,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {},
-                    child: SubText(
-                      align: TextAlign.end,
-                      color: Color.fromRGBO(19, 68, 90, 1),
-                      text: 'Esqueceu a senha?',
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: InputTextButton(
@@ -127,8 +122,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   InputOutlineButton(
                     title: "Voltar",
                     onClick: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(Get.overlayContext!)
+                          .pushReplacementNamed('/');
                     },
+                  ),
+                  const SizedBox(height: 10),
+                  InkWell(
+                    onTap: () {},
+                    child: SubText(
+                      align: TextAlign.end,
+                      color: Color.fromRGBO(19, 68, 90, 1),
+                      text: 'Esqueceu a senha?',
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
@@ -147,7 +152,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                             const SignUpScreen()));
                               },
                               child: const Text(
-                                "Crie uma conta.", 
+                                "Crie uma conta.",
                                 style: TextStyle(
                                   color: Color.fromRGBO(19, 68, 90, 1),
                                 ),
