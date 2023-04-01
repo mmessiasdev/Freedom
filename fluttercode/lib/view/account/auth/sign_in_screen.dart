@@ -127,14 +127,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {},
-                    child: SubText(
-                      align: TextAlign.end,
-                      color: Color.fromRGBO(19, 68, 90, 1),
-                      text: 'Esqueceu a senha?',
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: SubText(
+                  //     align: TextAlign.end,
+                  //     color: Color.fromRGBO(19, 68, 90, 1),
+                  //     text: 'Esqueceu a senha?',
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: SizedBox(

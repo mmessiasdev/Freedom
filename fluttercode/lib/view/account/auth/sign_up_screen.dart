@@ -165,9 +165,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Navigator.of(context).pop();
                       },
                     ),
-                    const Spacer(
-                      flex: 5,
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: Row(
