@@ -1,14 +1,12 @@
 import 'package:Freedom/component/colors.dart';
 import 'package:Freedom/component/header.dart';
-import 'package:Freedom/component/inputdefault.dart';
+import 'package:Freedom/component/inputlight.dart';
 import 'package:Freedom/component/texts.dart';
 import 'package:Freedom/controller/controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../component/buttomdefault.dart';
+import 'complaintlist.dart';
 
 class ComplaintScreen extends StatefulWidget {
   const ComplaintScreen({Key? key}) : super(key: key);
@@ -82,12 +80,41 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              GestureDetector(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.list, color: SecudaryColor),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    SubText(
+                                        text: 'Ver denúncias',
+                                        color: SecudaryColor,
+                                        align: TextAlign.end)
+                                  ],
+                                ),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ComplaintList(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.symmetric(vertical: 50),
                           child: SizedBox(
                             height: 160,
                             child: GridView(
                               gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 98,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
@@ -273,8 +300,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                               backc: selectNivel == Nivel.high
                                                   ? PrimaryColor
                                                   : TerciaryColor,
-                                              color: Color.fromARGB(
-                                                  255, 229, 255, 0),
+                                              color: SecudaryColor,
                                               onClick: () {
                                                 setState(() {
                                                   selectNivel = Nivel.high;
@@ -309,7 +335,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
-                                  child: InputTextField(
+                                  child: InputTextFieldLight(
                                       title: 'Como se sente?',
                                       textEditingController: descController),
                                 )

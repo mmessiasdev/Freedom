@@ -120,6 +120,33 @@ class SubText extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SubTextSized extends StatelessWidget {
+  SubTextSized({required this.text, required this.color, required this.align, required this.size, required this.fontweight});
+  String text;
+  Color color;
+  TextAlign align;
+  double size;    
+  FontWeight fontweight;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.asap(
+          fontSize: size,
+          textStyle: TextStyle(
+            color: color,
+            fontWeight: fontweight,
+            decoration: TextDecoration.none,
+          ),
+        ),
+      ),
+    );
     ;
   }
 }

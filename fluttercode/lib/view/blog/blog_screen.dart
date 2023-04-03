@@ -24,11 +24,9 @@ class _BlogPageState extends State<BlogPage> {
     var url =
         Uri.parse('${dotenv.get('BASEURL').toString()}/api/posts?sort=id:DESC');
     var response = await http.get(url);
-    print('status code : ${response.statusCode}');
     var body = jsonDecode(response.body);
     // parse
     var itemCount = body["data"];
-    print(itemCount);
     for (var i = 0; i < itemCount.length; i++) {
       listItens.add(Attributes.fromJson(itemCount[i]));
     }
@@ -119,7 +117,6 @@ class _BlogPageState extends State<BlogPage> {
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
                                 var renders = snapshot.data![index];
-                                print(renders.content.toString());
                                 if (renders != null) {
                                   return Column(
                                     children: [

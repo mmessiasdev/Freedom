@@ -29,7 +29,6 @@ class RemoteAuthService {
     required String token,
   }) async {
     var body = {"fullName": fullName};
-    print(body);
     var response = await client.post(
       Uri.parse('${dotenv.get('BASEURL').toString()}/api/profile/me'),
       headers: {
@@ -51,7 +50,6 @@ class RemoteAuthService {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(body),
     );
-    print(body);
     return response;
   }
 
