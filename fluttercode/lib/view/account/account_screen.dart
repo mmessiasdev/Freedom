@@ -44,7 +44,6 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
       child: ListView(
         children: [
           const MainHeader(),

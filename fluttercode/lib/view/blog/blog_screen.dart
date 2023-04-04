@@ -133,13 +133,15 @@ class _BlogPageState extends State<BlogPage> {
                                   );
                                 }
                                 return const SizedBox(
+                                  height: 100,
                                   child: Center(
                                     child: Text('Não encontrado'),
                                   ),
                                 );
                               });
                         }
-                        return Expanded(
+                        return SizedBox(
+                          height: 300,
                           child: Center(
                             child: CircularProgressIndicator(
                               color: TerciaryColor,
