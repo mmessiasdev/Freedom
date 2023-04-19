@@ -28,7 +28,11 @@
 
 <div>
 <img src="https://user-images.githubusercontent.com/78608382/229263116-93ab7bf2-c9f6-4f7f-b925-4568ece57fdc.gif" height=400>
+<img src="https://user-images.githubusercontent.com/78608382/233120683-03993609-602f-4f1f-bf75-5a212f2f0dc4.png" height=400>
+
+
 </div>
+
 
 ### 💡 Dicas de utilização
 
